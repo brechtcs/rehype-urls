@@ -2,6 +2,12 @@
 
 Rehype plugin to rewrite URLs of `href` and `src` attributes.
 
+## Installation
+
+```sh
+npm install rehype-urls
+```
+
 ## Usage
 
 Given this markup:
