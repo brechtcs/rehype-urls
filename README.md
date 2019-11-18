@@ -24,7 +24,7 @@ You can use the following script:
 
 ```js
 var rehype = require('rehype')
-var url = require('rehype-urls')
+var urls = require('rehype-urls')
 
 rehype()
   .use(urls, removeBaseUrl)
