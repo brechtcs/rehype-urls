@@ -34,7 +34,6 @@ function removeBaseUrl (url) {
   if (url.host === 'internal.site') {
     return url.path
   }
-  return url.href
 }
 ```
 
@@ -46,6 +45,25 @@ Which will transform it into:
   <a href="/page.html">page</a>
   <a href="http://example.com">link</a>
 </article>
+```
+
+### Mutate nodes
+
+It's also possible to mutate the URL nodes directly. This example will add `target="_blank"` to any external links:
+
+```js
+var rehype = require('rehype')
+var urls = require('rehype-urls')
+
+rehype()
+  .use(urls, blankExternal)
+  .process(input, handleOutput)
+
+function blankExternal (url, node) {
+  if (url.host !== 'internal.site') {
+    node.properties.target = '_blank'
+  }
+}
 ```
 
 ## License

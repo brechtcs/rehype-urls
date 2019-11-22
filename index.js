@@ -1,11 +1,10 @@
 var has = require('hast-util-has-property')
 var url = require('url')
+var some = require('stdopt/some')
 var visit = require('unist-util-visit')
 
 module.exports = function transform (fn) {
-  fn = fn || function (url) {
-    return url.href
-  }
+  fn = fn || function () {}
 
   return function transformer (tree) {
     visit(tree, 'element', function (node) {
@@ -16,8 +15,9 @@ module.exports = function transform (fn) {
 
   function modify (node, prop) {
     if (has(node, prop)) {
-      var parsed = url.parse(node.properties[prop])
-      node.properties[prop] = fn(parsed)
+      var obj = url.parse(node.properties[prop])
+      var res = some(fn(obj, node)).or(obj).value()
+      node.properties[prop] = url.format(res)
     }
   }
 }
