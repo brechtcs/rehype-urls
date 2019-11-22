@@ -1,6 +1,6 @@
 {
   "name": "rehype-urls",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Rehype plugin to rewrite URLs of `href` and `src` attributes",
   "main": "index.js",
   "scripts": {
@@ -27,7 +27,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "hast-util-has-property": "^1.0.2",
-    "stdopt": "^1.0.0",
+    "stdopt": "^2.0.0",
     "unist-util-visit": "^1.4.0"
   },
   "devDependencies": {

@@ -1,6 +1,6 @@
 var has = require('hast-util-has-property')
 var url = require('url')
-var some = require('stdopt/some')
+var opt = require('stdopt')
 var visit = require('unist-util-visit')
 
 module.exports = function transform (fn) {
@@ -16,7 +16,7 @@ module.exports = function transform (fn) {
   function modify (node, prop) {
     if (has(node, prop)) {
       var obj = url.parse(node.properties[prop])
-      var res = some(fn(obj, node)).or(obj).value()
+      var res = opt(fn(obj, node)).or(obj).value()
       node.properties[prop] = url.format(res)
     }
   }
