@@ -3,8 +3,11 @@ var url = require('url')
 var opt = require('stdopt')
 var visit = require('unist-util-visit')
 
-module.exports = function transform (fn) {
-  fn = fn || function () {}
+module.exports = function transform (options) {
+  if (typeof options === 'function') {
+    options = { transform: options }
+  }
+  options.transform = options.transform || function () {}
 
   return function transformer (tree) {
     visit(tree, 'element', function (node) {
@@ -16,7 +19,7 @@ module.exports = function transform (fn) {
   function modify (node, prop) {
     if (has(node, prop)) {
       var obj = url.parse(node.properties[prop])
-      var res = opt(fn(obj, node)).or(obj).value()
+      var res = opt(options.transform(obj, node)).or(obj).value()
       node.properties[prop] = url.format(res)
     }
   }

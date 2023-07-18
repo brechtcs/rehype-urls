@@ -24,6 +24,16 @@ tape('mutate', t => {
   t.end()
 })
 
+tape('option object', t => {
+  var href = '<a href="http://example.com/page.html">text</a>'
+  var src = '<img src="http://example.com/image.jpg">'
+  var p = rehype().use(urls, { transform: url => url.path }).freeze()
+
+  t.equal(p.processSync(href).contents, wrap('<a href="/page.html">text</a>'), 'return href string')
+  t.equal(p.processSync(src).contents, wrap('<img src="/image.jpg">'), 'return src string')
+  t.end()
+})
+
 function wrap (html) {
   return `<html><head></head><body>${html}</body></html>`
 }

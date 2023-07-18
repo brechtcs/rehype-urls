@@ -47,6 +47,14 @@ Which will transform it into:
 </article>
 ```
 
+You can also pass in an object:
+
+```js
+rehype()
+  .use(urls, { transform: removeBaseUrl })
+  .process(input, handleOutput)
+```
+
 ### Mutate nodes
 
 It's also possible to mutate the URL nodes directly. This example will add `target="_blank"` to any external links:
